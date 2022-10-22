@@ -1,0 +1,34 @@
+.container {
+  &__editor {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  &__table {
+    max-height: calc(100vh - 155px); 
+    overflow: auto;
+    border: 1px solid rgb(0 0 0 / 4%);
+  }
+  &__result {
+    padding: 1rem;
+    margin: 2rem;
+    background-color:antiquewhite;
+  }
+  &__spinner {
+    display: flex;
+    justify-content: center;
+  }
+  &__export {
+    margin: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+

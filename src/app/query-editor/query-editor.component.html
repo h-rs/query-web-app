@@ -1,0 +1,58 @@
+<div class="container">
+	<div class="container__editor">
+		<mat-card>
+			<div>
+				<form [formGroup]="editorForm">
+					<mat-form-field appearance="fill">
+						<mat-label>Choose a query</mat-label>
+						<mat-select formControlName="query">
+						  <mat-option *ngFor="let query of queryList" [value]="query.id">
+							{{query.query}}
+						  </mat-option>
+						</mat-select>
+					  </mat-form-field>
+				</form>
+			</div>
+			<mat-card-actions align="end">
+				<button mat-raised-button (click)="copyQuery()"> <mat-icon>content_copy</mat-icon> Copy</button>
+				<button mat-raised-button color="primary" (click)="getResults()">
+					<mat-icon>play_arrow</mat-icon> Run
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<ng-template [ngIf]="source.length">
+		<mat-card>
+			<div class="container__export">
+				<button mat-stroked-button (click)="exportResults()">
+					<mat-icon>arrow_upward</mat-icon> Export Results
+				</button>
+			</div>
+			<div class="container__table">
+				<table mat-table [dataSource]="source" class="mat-elevation-z8">
+					<div *ngFor="let col of displayedColumns">
+						<ng-container [matColumnDef]="col">
+							<th mat-header-cell *matHeaderCellDef> {{col}} </th>
+							<td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+						  </ng-container>
+						</div>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+			</div>
+		</mat-card>
+		
+	</ng-template>
+	<ng-template [ngIf]="(updateMessage | async)">
+		<div class="container__result">
+			<h3>{{updateMessage | async}}</h3>
+		</div>
+	</ng-template>
+
+	<ng-template [ngIf]="(loading | async)">
+		<div class="container__spinner">
+			<mat-spinner></mat-spinner>
+		</div>
+	</ng-template>
+</div>
